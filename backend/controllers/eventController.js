@@ -30,7 +30,7 @@ const getSingleEvent = async (req, res) => {
 // create a new event
 const createEvent = async (req, res) => {
 
-    const { name, description, sets, reps, weight } = req.body;
+    const { name, description, times, venue, weight } = req.body;
 
     let emptyFields = []
 
@@ -40,11 +40,11 @@ const createEvent = async (req, res) => {
     if (!description) {
         emptyFields.push('description')
     }
-    if (!sets) {
-        emptyFields.push('sets')
+    if (!times) {
+        emptyFields.push('times')
     }
-    if (!reps) {
-        emptyFields.push('reps')
+    if (!venue) {
+        emptyFields.push('venue')
     }
     if (emptyFields.length > 0) {
         return res.status(400).json({error: 'Please fill in all of the fields', emptyFields})
@@ -52,7 +52,7 @@ const createEvent = async (req, res) => {
 
     try {
         const user_id = req.user._id;
-        const event = await Event.create({ name, description, sets, reps, user_id });
+        const event = await Event.create({ name, description, venue, times, user_id });
         res.status(201).json(event);
     } catch (error) {
         return res.status(400).json({ error: error.message });

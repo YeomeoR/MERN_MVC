@@ -10,6 +10,8 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    venue: String,
+    times: String,
     user_id: {
         type: String,
         required: true
