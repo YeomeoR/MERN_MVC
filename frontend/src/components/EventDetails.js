@@ -19,14 +19,14 @@ const EventDetails = ({event}) => {
         })
         const json = await response.json()
         if (response.ok) {
-            dispatch({type: 'DELETE_Event', payload: json})
+            dispatch({type: 'DELETE_EVENT', payload: json})
         }
     }
     return (
         <div className="event-details">
             <h4>{event.name}</h4>
-            <p>{event.reps}</p>
-            <p>{event.sets}</p>
+            <p>{event.venue}</p>
+            <p>{event.times}</p>
             <p>{formatDistanceToNow(new Date(event.createdAt), {addSuffix: true})}</p>
             <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>

@@ -7,8 +7,8 @@ const EventForm = () => {
     const {user} = useAuthContext();
     
     const [name, setName] = useState('');
-    const [reps, setReps] = useState('');
-    const [sets, setSets] = useState('');
+    const [venue, setVenue] = useState('');
+    const [times, setTimes] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState(null);
     const [emptyFields, setEmptyFields] = useState([]);
@@ -19,7 +19,7 @@ const EventForm = () => {
             setError('You must be logged in to use this')
             return;
         }
-        const event = {name, reps, sets, description}
+        const event = {name, venue, times, description}
 
         const response = await fetch('/api/events', {
             method: 'POST',
@@ -40,12 +40,12 @@ const EventForm = () => {
         }
         if (response.ok) {
             setName('')
-            setReps('')
-            setSets('')
+            setVenue('')
+            setTimes('')
             setDescription('')
             setError(null);
             console.log('new event added', json)
-            dispatch({type: 'CREATE_Event', payload: json})
+            dispatch({type: 'CREATE_EVENT', payload: json})
             setEmptyFields([])
         }
     }
@@ -53,14 +53,14 @@ const EventForm = () => {
     return (
         <form action="" className="create" onSubmit={handleSubmit}>
             <h3>Add a new event</h3>
-            <label>Exercise Name</label>
+            <label>Event Name:</label>
             <input 
                 type="text" 
                 onChange={(e) => {setName(e.target.value)}}
                 value={name}
                 className={emptyFields.includes('name') ? 'error' : ''}
                 />
-            <label>Exercise Description</label>
+            <label>Event Description:</label>
             <input 
                 type="text" 
                 onChange={(e) => {setDescription(e.target.value)}}
@@ -68,20 +68,20 @@ const EventForm = () => {
                 className={emptyFields.includes('description') ? 'error' : ''}
                 
                 />
-            <label>Exercise Reps</label>
+            <label>Event Venue:</label>
             <input 
-                type="number" 
-                onChange={(e) => {setReps(e.target.value)}}
-                value={reps}
-                className={emptyFields.includes('reps') ? 'error' : ''}
+                type="text" 
+                onChange={(e) => {setVenue(e.target.value)}}
+                value={venue}
+                className={emptyFields.includes('venue') ? 'error' : ''}
                 
                 />
-            <label>Exercise sets</label>
+            <label>Event Times:</label>
             <input 
-                type="number" 
-                onChange={(e) => {setSets(e.target.value)}}
-                value={sets}
-                className={emptyFields.includes('sets') ? 'error' : ''}
+                type="text" 
+                onChange={(e) => {setTimes(e.target.value)}}
+                value={times}
+                className={emptyFields.includes('times') ? 'error' : ''}
 
             />
             <button>Add Event</button>
